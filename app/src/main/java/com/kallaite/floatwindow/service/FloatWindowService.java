@@ -243,15 +243,19 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 
 	@Override
 	public void creatFloatBallWithAnimation() {
+		View v ;
 		if (mHomeWindow != null) {
-			AnimatorSet animatorSet = getAnimatorSet(mHomeWindow);
-			animatorSet.start();
+			v = mHomeWindow;
 		}else if( mCollectView != null){
-			AnimatorSet animatorSet = getAnimatorSet(mCollectView);
-			animatorSet.start();
+			v = mCollectView;
+		}else if( mAppWindow != null){
+			v = mAppWindow;
 		}else {
 			createFloatBall();
+			return;
 		}
+		AnimatorSet animatorSet = getAnimatorSet(v);
+		animatorSet.start();
 	}
 
 	@Override
@@ -297,9 +301,9 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 		addViewToRoot(mHomeWindow);
 
 		float homeSize = this.getResources().getDimension(R.dimen.fw_300dp);
-		ObjectAnimator translationX = ObjectAnimator.ofFloat(mHomeWindow, "translationX", mFloatBallParams.x-(mSreenWidth/2f-homeSize/2),0f).setDuration(TIME_ANIMATION);
+		ObjectAnimator translationX = ObjectAnimator.ofFloat(mHomeWindow, "translationX", mFloatBallParams.x-(mSreenWidth-homeSize)/2f,0f).setDuration(TIME_ANIMATION);
 
-		ObjectAnimator translationY = ObjectAnimator.ofFloat(mHomeWindow, "translationY", mFloatBallParams.y-((mSreenHeight-Utils.getStatusBarHeight(this))/2f-homeSize/2)-mFloatBallSize,0f).setDuration(TIME_ANIMATION);
+		ObjectAnimator translationY = ObjectAnimator.ofFloat(mHomeWindow, "translationY", mFloatBallParams.y-(mSreenHeight-homeSize)/2f-mFloatBallSize,0f).setDuration(TIME_ANIMATION);
 
 		DecimalFormat df = new DecimalFormat("#.00");
 		float start = Float.valueOf(df.format(mFloatBallSize / homeSize));
@@ -456,9 +460,9 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 
 	private AnimatorSet getAnimatorSet(final View view){
 		float homeSize = this.getResources().getDimension(R.dimen.fw_300dp);
-		ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", 0f,mFloatBallParams.x-(mSreenWidth/2f-homeSize/2)).setDuration(TIME_ANIMATION);
+		ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", 0f,mFloatBallParams.x-(mSreenWidth-homeSize)/2f).setDuration(TIME_ANIMATION);
 
-		ObjectAnimator translationY = ObjectAnimator.ofFloat(view, "translationY", 0f,mFloatBallParams.y-((mSreenHeight-Utils.getStatusBarHeight(this))/2f-homeSize/2)-mFloatBallSize).setDuration(TIME_ANIMATION);
+		ObjectAnimator translationY = ObjectAnimator.ofFloat(view, "translationY", 0f,mFloatBallParams.y-(mSreenHeight-homeSize )/2f-mFloatBallSize).setDuration(TIME_ANIMATION);
 
 		DecimalFormat df = new DecimalFormat("#.00");
 		float end = Float.valueOf(df.format(mFloatBallSize / homeSize));

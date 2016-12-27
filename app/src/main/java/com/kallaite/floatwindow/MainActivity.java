@@ -33,7 +33,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         startService(intent);
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.start_float_window);
-        int show = Utils.readInt(this,Utils.SHOW_FLOAT_BALL,Utils.HIDE_FLOAT_BALL);
+        int show = Utils.readInt(this,Utils.SHOW_FLOAT_BALL,Utils.DISPLAY_FLOAT_BALL);
         checkBox.setChecked(show == Utils.DISPLAY_FLOAT_BALL);
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         });
 
-        int ballSize = Utils.readInt(MainActivity.this,Utils.FLOAT_BALL_SIZE,this.getResources().getDimensionPixelSize(R.dimen.fw_50dp));
+        int ballSize = Utils.readInt(MainActivity.this,Utils.FLOAT_BALL_SIZE,this.getResources().getDimensionPixelSize(R.dimen.fw_80dp));
         seekBar.setProgress(Utils.sizeToProgress(getApplication(),ballSize));
         builder.setTitle(R.string.scale);
         builder.setView(v);

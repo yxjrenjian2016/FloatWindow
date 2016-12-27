@@ -23,7 +23,10 @@ public class RemoteReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
         Log.v("RemoteReceiver","onReceive++"+action );
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        int show = Utils.readInt(context,Utils.SHOW_FLOAT_BALL,Utils.HIDE_FLOAT_BALL);
+        if( show == Utils.DISPLAY_FLOAT_BALL){
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        }
 
     }
 }
