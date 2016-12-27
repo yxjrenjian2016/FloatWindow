@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@android:color/darker_gray"
+                tools:ignore="Overdraw">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="@dimen/fw_100dp"
+                    android:paddingLeft="@dimen/fw_20dp"
+                    android:paddingRight="@dimen/fw_20dp">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/display_window"
+                  android:textSize="@dimen/fw_16sp"
+                  android:textColor="@drawable/fw_tx_color"
+                  android:layout_centerVertical="true"/>
+
+        <CheckBox
+                android:id="@+id/start_float_window"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:button="@drawable/fw_switch">
+        </CheckBox>
+    </RelativeLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="@dimen/fw_1dp"
+          android:background="@drawable/fw_divider"/>
+
+        <RelativeLayout
+                android:id="@+id/scale_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fw_100dp"
+                android:paddingLeft="@dimen/fw_20dp"
+                android:paddingRight="@dimen/fw_20dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/scale"
+                      android:textSize="@dimen/fw_16sp"
+                      android:textColor="@drawable/fw_tx_color"
+                      android:layout_centerVertical="true"/>
+
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentRight="true"
+                       android:layout_centerVertical="true"
+                       android:src="@drawable/fw_arrow"/>
+
+        </RelativeLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="@dimen/fw_1dp"
+          android:background="@drawable/fw_divider"/>
+
+</LinearLayout>

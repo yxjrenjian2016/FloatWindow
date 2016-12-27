@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/big_window_layout"
+        android:layout_width="@dimen/fw_180dp"
+        android:layout_height="@dimen/fw_180dp"
+        android:background="@drawable/fw_home_background" tools:ignore="Overdraw">
+    <TextView
+        android:id="@+id/up"
+        android:layout_centerHorizontal="true"
+        android:text="@string/main"
+        android:drawableTop="@drawable/fw_home"
+        style="@style/HomeTextStyle"/>
+    <TextView
+            android:id="@+id/left"
+            android:layout_centerVertical="true"
+            android:drawableTop="@drawable/fw_voice"
+            android:text="@string/voice"
+            style="@style/HomeTextStyle"/>
+    <TextView
+            android:id="@+id/right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:drawableTop="@drawable/fw_fav"
+            style="@style/HomeTextStyle"
+            android:text="@string/collect"/>
+    <TextView
+        android:id="@+id/down"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawableTop="@drawable/fw_app"
+        style="@style/HomeTextStyle"
+        android:text="@string/application"/>
+
+    <ImageView
+            android:id="@+id/center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/fw_back"/>
+</RelativeLayout>

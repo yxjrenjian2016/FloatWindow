@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="@dimen/fw_180dp"
+                android:layout_height="@dimen/fw_180dp"
+                android:background="@drawable/fw_home_background" tools:ignore="Overdraw">
+
+    <GridView  android:id="@+id/collect_gridView"
+               android:layout_width="@dimen/fw_180dp"
+               android:layout_height="@dimen/fw_180dp"
+               android:layout_centerInParent="true"
+               android:numColumns="3"
+               android:padding="@dimen/fw_5dp"
+               android:verticalSpacing="@dimen/fw_5dp"
+               android:horizontalSpacing="@dimen/fw_5dp"></GridView>
+
+</RelativeLayout>
+  

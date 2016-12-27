@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Floating assistant</string>
+    <string name="application">Application</string>
+    <string name="collect">Collect</string>
+    <string name="main">Main</string>
+    <string name="scale">Scale</string>
+    <string name="voice">Voice</string>
+    <string name="display_window">Display floating ball</string>
+</resources>
