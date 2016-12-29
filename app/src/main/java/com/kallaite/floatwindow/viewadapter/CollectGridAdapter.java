@@ -2,6 +2,7 @@ package com.kallaite.floatwindow.viewadapter;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -75,7 +76,9 @@ public class CollectGridAdapter extends BaseAdapter {
                     Utils.doWithFloatWindow(mContext,Utils.CMD_ADD_HOME_WINDOW);
                 }else {
                     if( mDataArray == null || (mDataArray.get(pos) == null) ){
-                        Utils.doWithFloatWindowWithExtra(mContext,Utils.CMD_ADD_ALL_APP_WINDOW,Utils.ACTION_POSITION,String.valueOf(pos));
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Utils.ACTION_POSITION,String.valueOf(pos));
+                        Utils.doWithFloatWindowWithExtra(mContext,Utils.CMD_ADD_ALL_APP_WINDOW,bundle);
 
                     }else {
                         PackageInfo info = mDataArray.get(pos);

@@ -3,13 +3,10 @@ package com.kallaite.floatwindow.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.kallaite.floatwindow.callback.IServiceViewCallback;
-import com.kallaite.floatwindow.service.FloatWindowService;
 import com.kallaite.floatwindow.utils.Utils;
 
 
@@ -50,12 +47,12 @@ public class LocalReceiver extends BroadcastReceiver {
                     mViewCallback.creatFloatBallWithAnimationDelay();
                     break;
                 case Utils.CMD_FLOAT_BALL_SIZE:
-                    String size = intent.getStringExtra(Utils.FLOAT_BALL_SIZE);
-                    mViewCallback.setFloatBallSize(Integer.valueOf(size));
+                    int size = intent.getBundleExtra(Utils.FLOAT_BALL_SIZE).getInt(Utils.FLOAT_BALL_SIZE);
+                    mViewCallback.setFloatBallSize(size);
                     mViewCallback.createFloatBall();
                     break;
                 case Utils.CMD_ADD_ALL_APP_WINDOW:
-                    String pos = intent.getStringExtra(Utils.ACTION_POSITION);
+                    String pos = intent.getBundleExtra(Utils.ACTION_POSITION).getString(Utils.ACTION_POSITION);
                     mViewCallback.createInstalledAppWindow(pos);
                     break;
                 case Utils.CMD_ADD_COLLECT_APP_WINDOW:

@@ -75,14 +75,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
      */
     private void createScaleDialog(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View v = LayoutInflater.from(this).inflate(R.layout.seekbar_layout,null);
         SeekBar seekBar = (SeekBar)v.findViewById(R.id.scale_seekbar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 int size = Utils.progressToSize(getApplication(),i);
-                Utils.doWithFloatWindowWithExtra(MainActivity.this,Utils.CMD_FLOAT_BALL_SIZE,Utils.FLOAT_BALL_SIZE,String.valueOf(size));
+                Bundle bundle = new Bundle();
+                bundle.putInt(Utils.FLOAT_BALL_SIZE,size);
+                Utils.doWithFloatWindowWithExtra(MainActivity.this,Utils.CMD_FLOAT_BALL_SIZE,bundle);
             }
 
             @Override

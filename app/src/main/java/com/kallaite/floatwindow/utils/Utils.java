@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -82,10 +83,10 @@ public class Utils {
      * @param key 附带键
      * @param value 附带值
      */
-    public static void doWithFloatWindowWithExtra(Context context,int cmd,String key,String value) {
+    public static void doWithFloatWindowWithExtra(Context context, int cmd, Bundle bundle) {
         Intent intent = new Intent(Utils.ACTION_FLOAT_WINDOW);
         intent.putExtra(Utils.ACTION_CMD,cmd);
-        intent.putExtra(key,value);
+        intent.putExtras(bundle);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

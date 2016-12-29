@@ -151,6 +151,8 @@ public class FloatBall extends LinearLayout {
 		mParams.x = (int) (xInScreen - xInView);
 		mParams.y = (int) (yInScreen - yInView);
 		mWindowManager.updateViewLayout(this, mParams);
+
+
 	}
 
 }
