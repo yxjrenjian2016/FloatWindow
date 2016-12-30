@@ -1,6 +1,7 @@
 package com.kallaite.floatwindow.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -74,6 +75,8 @@ public class FloatBall extends LinearLayout {
 
 	private ImageView mBall;
 
+	private int[] mLocation = new int[2];
+
 	public FloatBall(Context context) {
 		super(context);
 		mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -115,7 +118,11 @@ public class FloatBall extends LinearLayout {
 					mWindowManager.updateViewLayout(this, mParams);
 				}
 			}
-			//mBall.setImageResource(R.drawable.fw_ball_normal);
+			this.getLocationOnScreen(mLocation);
+			Bundle bundle = new Bundle();
+			bundle.putIntArray(Utils.REFRESH_FLOAT_BALL_LOCATION, mLocation);
+			Utils.doWithFloatWindowWithExtra(this.getContext(), Utils.CMD_REFRESH_FLOAT_BALL_LOCATION, bundle);
+			Log.v(TAG, "updateViewPosition+" + mLocation[0] + "," + mLocation[1]);
 			break;
 		default:
 			break;

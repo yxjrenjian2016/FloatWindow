@@ -36,6 +36,8 @@ public class Utils {
 
     public static final String ACTION_POSITION = "action_position";//位置
 
+    public static final String REFRESH_FLOAT_BALL_LOCATION = "refresh_float_ball_location";//刷新悬浮球位置
+
     public static final int CMD_ADD_FLOAT_BALL = 1;//添加悬浮球
 
     public static final int CMD_REMOVE_FLAOT_BALL = 2;//移除悬浮求
@@ -59,6 +61,8 @@ public class Utils {
     public static final int CMD_EXIT_STANDBY = 11;//亮屏退出standby
 
     public static final int CMD_ADD_HOME_WINDOW_WITH_ANIMATION = 12;//添加中间布局带动画
+
+    public static final int CMD_REFRESH_FLOAT_BALL_LOCATION = 14;//刷新悬浮球位置
 
     public static final int DISPLAY_FLOAT_BALL = 1;//1显示悬浮球
 
@@ -115,8 +119,8 @@ public class Utils {
      * @return
      */
     public static int sizeToProgress(Context context,int size){
-        int max = context.getResources().getDimensionPixelSize(R.dimen.fw_50dp);
-        int min = context.getResources().getDimensionPixelSize(R.dimen.fw_20dp);
+        int max = context.getResources().getDimensionPixelSize(R.dimen.fw_60dp);
+        int min = context.getResources().getDimensionPixelSize(R.dimen.fw_40dp);
         int progress = (int) (100f * (size - min)/(max - min));
         return progress;
     }
@@ -128,8 +132,8 @@ public class Utils {
      * @return
      */
     public static int progressToSize(Context context,int progress){
-        int max = context.getResources().getDimensionPixelSize(R.dimen.fw_50dp);
-        int min = context.getResources().getDimensionPixelSize(R.dimen.fw_20dp);
+        int max = context.getResources().getDimensionPixelSize(R.dimen.fw_60dp);
+        int min = context.getResources().getDimensionPixelSize(R.dimen.fw_40dp);
         int size = (int) (min + (max - min)/100f * progress);
         return size;
     }

@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         });
 
-        int ballSize = Utils.readInt(MainActivity.this,Utils.FLOAT_BALL_SIZE,this.getResources().getDimensionPixelSize(R.dimen.fw_80dp));
+        int ballSize = Utils.readInt(MainActivity.this,Utils.FLOAT_BALL_SIZE,this.getResources().getDimensionPixelSize(R.dimen.fw_50dp));
         seekBar.setProgress(Utils.sizeToProgress(getApplication(),ballSize));
         builder.setTitle(R.string.scale);
         builder.setView(v);

@@ -47,12 +47,12 @@ public class LocalReceiver extends BroadcastReceiver {
                     mViewCallback.creatFloatBallWithAnimationDelay();
                     break;
                 case Utils.CMD_FLOAT_BALL_SIZE:
-                    int size = intent.getBundleExtra(Utils.FLOAT_BALL_SIZE).getInt(Utils.FLOAT_BALL_SIZE);
+                    int size = intent.getExtras().getInt(Utils.FLOAT_BALL_SIZE);
                     mViewCallback.setFloatBallSize(size);
                     mViewCallback.createFloatBall();
                     break;
                 case Utils.CMD_ADD_ALL_APP_WINDOW:
-                    String pos = intent.getBundleExtra(Utils.ACTION_POSITION).getString(Utils.ACTION_POSITION);
+                    String pos = intent.getExtras().getString(Utils.ACTION_POSITION);
                     mViewCallback.createInstalledAppWindow(pos);
                     break;
                 case Utils.CMD_ADD_COLLECT_APP_WINDOW:
@@ -61,6 +61,12 @@ public class LocalReceiver extends BroadcastReceiver {
                 case Utils.CMD_ADD_HOME_WINDOW_WITH_ANIMATION:
                     mViewCallback.createHomeWindowWithAnimation();
                     break;
+
+                case Utils.CMD_REFRESH_FLOAT_BALL_LOCATION:
+                    int[] location = intent.getExtras().getIntArray(Utils.REFRESH_FLOAT_BALL_LOCATION);
+                    mViewCallback.refreshBallLocation(location);
+                    break;
+
                 default:
                     break;
             }

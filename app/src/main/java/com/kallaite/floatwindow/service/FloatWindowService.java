@@ -3,6 +3,7 @@ package com.kallaite.floatwindow.service;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -68,6 +69,10 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 	private FloatWindowAppView mAppWindow;
 
 	private ArrayList<PackageInfo> mLaunchApp;
+
+	private int[] mFloatBallLocation = new int[2];
+
+	private int[] mHomeLocation = new int[2];
 
 	/**
 	 * 收藏应用窗口
@@ -137,7 +142,7 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 		mLaunchApp = Utils.getLaunchApp(this);
 		mHandler = new ServiceHandler(this);
 
-		mFloatBallSize = Utils.readInt(this,Utils.FLOAT_BALL_SIZE,this.getResources().getDimensionPixelSize(R.dimen.fw_80dp));
+		mFloatBallSize = Utils.readInt(this,Utils.FLOAT_BALL_SIZE,this.getResources().getDimensionPixelSize(R.dimen.fw_50dp));
 
 		registerReceiver();
 
@@ -226,6 +231,9 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 				mFloatBallParams.height = mFloatBallSize;
 				mFloatBallParams.x = mSreenWidth ;
 				mFloatBallParams.y = mSreenHeight / 2;
+				mFloatBallLocation[0] = mSreenWidth - mFloatBallSize;
+				mFloatBallLocation[1] = mSreenHeight / 2 + Utils.getStatusBarHeight(this);
+				Log.v(TAG, "post createFloatBall++" + mFloatBallLocation[0] + "," + mFloatBallLocation[1] + "," + mFloatBallSize);
 			}
 
 			mFloatBall.setSize(mFloatBallSize);
@@ -267,8 +275,36 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 	@Override
 	public void removeFloatBall() {
 		if (mFloatBall != null) {
-			mWindowManager.removeView(mFloatBall);
-			mFloatBall = null;
+			ObjectAnimator alpha = ObjectAnimator.ofFloat(mFloatBall, "alpha",  1f,0f).setDuration(TIME_ANIMATION);
+			alpha.addListener(new Animator.AnimatorListener() {
+				@Override
+				public void onAnimationStart(Animator animation) {
+
+				}
+
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					if( mFloatBall != null){
+						mWindowManager.removeView(mFloatBall);
+						mFloatBall = null;
+					}
+
+				}
+
+				@Override
+				public void onAnimationCancel(Animator animation) {
+					if( mFloatBall != null){
+						mWindowManager.removeView(mFloatBall);
+						mFloatBall = null;
+					}
+				}
+
+				@Override
+				public void onAnimationRepeat(Animator animation) {
+
+				}
+			});
+			alpha.start();
 		}
 	}
 
@@ -299,25 +335,25 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 		addRootView();
 		mHomeWindow = new FloatWindowHomeView(this);
 		addViewToRoot(mHomeWindow);
+		mHomeWindow.post(new Runnable() {
+			@Override
+			public void run() {
+				mHomeWindow.getLocationOnScreen(mHomeLocation);
+				Log.v(TAG,"mHomeLocation+"+mHomeLocation[0]+","+mHomeLocation[1] + "," +mHomeWindow.getHeight());
+				ObjectAnimator translationX = ObjectAnimator.ofFloat(mHomeWindow, "translationX", mFloatBallLocation[0]-mHomeLocation[0],0f).setDuration(TIME_ANIMATION);
 
-		float homeSize = this.getResources().getDimension(R.dimen.fw_300dp);
-		ObjectAnimator translationX = ObjectAnimator.ofFloat(mHomeWindow, "translationX", mFloatBallParams.x-(mSreenWidth-homeSize)/2f,0f).setDuration(TIME_ANIMATION);
+				ObjectAnimator translationY = ObjectAnimator.ofFloat(mHomeWindow, "translationY", mFloatBallLocation[1]-mHomeLocation[1]-mHomeWindow.getHeight()/2,0f).setDuration(TIME_ANIMATION);
 
-		ObjectAnimator translationY = ObjectAnimator.ofFloat(mHomeWindow, "translationY", mFloatBallParams.y-(mSreenHeight-homeSize)/2f-mFloatBallSize,0f).setDuration(TIME_ANIMATION);
+				ObjectAnimator alpha = ObjectAnimator.ofFloat(mHomeWindow, "alpha", 0,1f).setDuration(TIME_ANIMATION);
 
-		DecimalFormat df = new DecimalFormat("#.00");
-		float start = Float.valueOf(df.format(mFloatBallSize / homeSize));
+				AnimatorSet animatorSet = new AnimatorSet();
+				animatorSet.setInterpolator(new LinearInterpolator());
+				animatorSet.play(translationX).with(translationY).with(alpha);
+				animatorSet.start();
+				creatFloatBallWithAnimationDelay();
+			}
+		});
 
-		Log.v(TAG,"createHomeWindowWithAnimation+"+df.format(start));
-		ObjectAnimator scaleX = ObjectAnimator.ofFloat(mHomeWindow, "scaleX", start,1f).setDuration(TIME_ANIMATION);
-
-		ObjectAnimator scaleY = ObjectAnimator.ofFloat(mHomeWindow, "scaleY",start,1f).setDuration(TIME_ANIMATION);
-
-		AnimatorSet animatorSet = new AnimatorSet();
-		animatorSet.setInterpolator(new LinearInterpolator());
-		animatorSet.play(translationX).with(translationY).with(scaleX).with(scaleY);
-		animatorSet.start();
-		creatFloatBallWithAnimationDelay();
 	}
 
 	@Override
@@ -424,6 +460,11 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 	}
 
 	@Override
+	public void refreshBallLocation(int[] location) {
+		mFloatBallLocation = location;
+	}
+
+	@Override
 	public void removeAllWindow(boolean resetFloatBall){
 		if( resetFloatBall){
 			mFloatBallParams = null;
@@ -460,9 +501,7 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 
 	private AnimatorSet getAnimatorSet(final View view){
 		float homeSize = this.getResources().getDimension(R.dimen.fw_300dp);
-		ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", 0f,mFloatBallParams.x-(mSreenWidth-homeSize)/2f).setDuration(TIME_ANIMATION);
-
-		ObjectAnimator translationY = ObjectAnimator.ofFloat(view, "translationY", 0f,mFloatBallParams.y-(mSreenHeight-homeSize )/2f-mFloatBallSize).setDuration(TIME_ANIMATION);
+		ObjectAnimator alpha = ObjectAnimator.ofFloat(view, "alpha", 1f,0).setDuration(TIME_ANIMATION);
 
 		DecimalFormat df = new DecimalFormat("#.00");
 		float end = Float.valueOf(df.format(mFloatBallSize / homeSize));
@@ -473,7 +512,7 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 
 		AnimatorSet animatorSet = new AnimatorSet();
 		animatorSet.setInterpolator(new LinearInterpolator());
-		animatorSet.play(translationX).with(translationY).with(scaleX).with(scaleY);
+		animatorSet.play(alpha).with(scaleX).with(scaleY);
 		animatorSet.addListener(new Animator.AnimatorListener() {
 			@Override
 			public void onAnimationStart(Animator animation) {
@@ -483,6 +522,8 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 			@Override
 			public void onAnimationEnd(Animator animation) {
 				createFloatBall();
+				ObjectAnimator alpha = ObjectAnimator.ofFloat(mFloatBall, "alpha",  0f,1f).setDuration(TIME_ANIMATION);
+				alpha.start();
 				removeHomeWindow();
 				removeCollectView();
 				removeInstalledAppWindow();

@@ -89,5 +89,7 @@ public interface IServiceViewCallback {
 
     int getFloatBallSize();
 
+    void refreshBallLocation(int[] location);
+
 
 }
