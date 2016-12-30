@@ -13,8 +13,6 @@ import android.widget.LinearLayout;
 import com.kallaite.floatwindow.R;
 import com.kallaite.floatwindow.utils.Utils;
 
-import java.lang.reflect.Field;
-
 public class FloatBall extends LinearLayout {
 
 	private static final String TAG = "FloatBall";

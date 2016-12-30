@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.kallaite.floatwindow.R;
 import com.kallaite.floatwindow.utils.Utils;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**

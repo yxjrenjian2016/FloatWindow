@@ -17,11 +17,6 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="StartTheme" parent="android:Theme">
-        <item name="android:windowBackground">@drawable/fw_startpage</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
     <style name="HomeTextStyle" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

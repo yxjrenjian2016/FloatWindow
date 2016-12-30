@@ -1,7 +1,5 @@
 package com.kallaite.floatwindow.callback;
 
-import android.content.Context;
-
 /**
  * Created on 16-12-26.
  */
