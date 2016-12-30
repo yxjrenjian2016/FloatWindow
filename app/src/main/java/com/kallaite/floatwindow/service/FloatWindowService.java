@@ -170,6 +170,7 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 		if( mHandler != null){
 			mHandler.removeCallbacksAndMessages(null);
 		}
+		removeAllWindow(true);
 	}
 
 	/**

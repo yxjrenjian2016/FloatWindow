@@ -24,8 +24,6 @@ import java.util.Map;
  */
 public class Utils {
 
-    public static final String FLOAT_WINDOW_DATA = "float_window_data";
-
     public static final String SHOW_FLOAT_BALL = "show_float_ball";
 
     public static final String FLOAT_BALL_SIZE = "float_ball_size";
@@ -52,14 +50,6 @@ public class Utils {
 
     public static final int CMD_FLOAT_BALL_SIZE = 7;//修改悬浮球大小
 
-    public static final int CMD_ADD_PACKAGE = 8;//安装应用
-
-    public static final int CMD_REMOVE_PACKAGE = 9;//卸载应用
-
-    public static final int CMD_ENTER_STANDBY = 10;//熄屏进standby
-
-    public static final int CMD_EXIT_STANDBY = 11;//亮屏退出standby
-
     public static final int CMD_ADD_HOME_WINDOW_WITH_ANIMATION = 12;//添加中间布局带动画
 
     public static final int CMD_REFRESH_FLOAT_BALL_LOCATION = 14;//刷新悬浮球位置
@@ -84,8 +74,7 @@ public class Utils {
     /**
      * @param context Context
      * @param cmd 命令值
-     * @param key 附带键
-     * @param value 附带值
+
      */
     public static void doWithFloatWindowWithExtra(Context context, int cmd, Bundle bundle) {
         Intent intent = new Intent(Utils.ACTION_FLOAT_WINDOW);

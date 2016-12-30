@@ -29,20 +29,27 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
-        startService(intent);
-
         CheckBox checkBox = (CheckBox) findViewById(R.id.start_float_window);
         int show = Utils.readInt(this,Utils.SHOW_FLOAT_BALL,Utils.DISPLAY_FLOAT_BALL);
         checkBox.setChecked(show == Utils.DISPLAY_FLOAT_BALL);
 
+        if( show == Utils.DISPLAY_FLOAT_BALL ){
+            Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
+            startService(intent);
+        }
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
                 Utils.writeInt(MainActivity.this,Utils.SHOW_FLOAT_BALL,checked?Utils.DISPLAY_FLOAT_BALL:Utils.HIDE_FLOAT_BALL);
-                Utils.doWithFloatWindow(MainActivity.this,checked?Utils.CMD_ADD_FLOAT_BALL :Utils.CMD_REMOVE_FLAOT_BALL);
+                //Utils.doWithFloatWindow(MainActivity.this,checked?Utils.CMD_ADD_FLOAT_BALL :Utils.CMD_REMOVE_FLAOT_BALL);
                 mScaleLayout.setEnabled(checked);
+                Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
+                if( checked){
+                    startService(intent);
+                }else {
+                    MainActivity.this.stopService(intent);
+                }
             }
         });
 
