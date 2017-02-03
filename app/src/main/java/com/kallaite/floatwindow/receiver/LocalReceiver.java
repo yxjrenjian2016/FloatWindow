@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.kallaite.floatwindow.MainActivity;
 import com.kallaite.floatwindow.callback.IServiceViewCallback;
 import com.kallaite.floatwindow.utils.Utils;
 

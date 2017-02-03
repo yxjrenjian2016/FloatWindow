@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import com.kallaite.floatwindow.R;
@@ -221,6 +222,9 @@ public class FloatWindowService extends Service implements IServiceViewCallback{
 	@Override
 	public void createFloatBall() {
 
+		if( !Utils.hasAuthorFloatWin(this)){
+			Toast.makeText(this,R.string.auth_reject,Toast.LENGTH_SHORT).show();
+		}
 		removeRootView();
 		if (mFloatBall == null) {
 			mFloatBall = new FloatBall(this);

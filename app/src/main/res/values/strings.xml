@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">Floating assistant</string>
-    <string name="application">Application</string>
-    <string name="collect">Collect</string>
-    <string name="main">Main</string>
-    <string name="scale">Scale</string>
-    <string name="voice">Voice</string>
-    <string name="display_window">Display floating ball</string>
+    <string name="app_name">悬浮助手</string>
+    <string name="application">应用</string>
+    <string name="collect">收藏</string>
+    <string name="main">主页</string>
+    <string name="scale">大小调节</string>
+    <string name="voice">语音</string>
+    <string name="display_window">显示悬浮窗</string>
+    <string name="package_not_found">应用未找到</string>
+    <string name="auth_reject">请到设置或安全中心中授予悬浮窗权限</string>
 </resources>

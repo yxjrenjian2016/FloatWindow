@@ -1,10 +1,12 @@
 package com.kallaite.floatwindow.utils;
 
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Binder;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import com.kallaite.floatwindow.R;
 
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -226,5 +229,28 @@ public class Utils {
             e.printStackTrace();
         }
         return mStatusBarHeight;
+    }
+
+    /**
+     * 判断是否开启浮窗权限,api未公开，使用反射调用
+     * @return
+     */
+    public static boolean hasAuthorFloatWin(Context context) {
+
+
+        try {
+            AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            Class c = appOps.getClass();
+            Class[] cArg = new Class[3];
+            cArg[0] = int.class;
+            cArg[1] = int.class;
+            cArg[2] = String.class;
+            Method lMethod = c.getDeclaredMethod("checkOp", cArg);
+            //24是浮窗权限的标记
+            return (AppOpsManager.MODE_ALLOWED == (Integer) lMethod.invoke(appOps, 24, Binder.getCallingUid(), context.getPackageName()));
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 }
